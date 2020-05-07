@@ -1,26 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+
+
+// We can call multiple route files here, and just set them up for express further down
+// 
+const orgroutes = require('./routes/api');
 const routes = require('./routes/api');
+
 const path = require('path');
-require('dotenv').config();
+
 
 const app = express();
 
 const port = process.env.PORT || 5000;
-
-var MongoClient = require('mongodb').MongoClient;
-
-var dburl = process.env.DB;
-
-MongoClient.connect(dburl ,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, function(err, db) {
-  if (err) throw err;
-    console.log("Database connected!");
-  db.close();
-});
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -30,14 +22,15 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+// Adding our routes to express
+app.use('/api', routes);
 app.use('/api', routes);
 
 app.use((err, req, res, next) => {
-  console.log(err);
-  next();
+  res.send('Welcome to Express');
 });
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`)
+    console.log('running');
+    console.log(`Server running on port ${port}`)
 });
-
