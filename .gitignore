@@ -1,4 +1,6 @@
 app/node_modules
+app/client/node_module
+app/.env
 
 # Local .terraform directories
 **/.terraform/*
