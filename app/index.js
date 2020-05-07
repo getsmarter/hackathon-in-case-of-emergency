@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 // We can call multiple route files here, and just set them up for express further down
 // 
-const orgroutes = require('./routes/api');
+const orgroutes = require('./routes/organisation');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -24,7 +24,7 @@ app.use(bodyParser.json());
 
 // Adding our routes to express
 app.use('/api', routes);
-app.use('/api', routes);
+app.use('/api', orgroutes);
 
 app.use((err, req, res, next) => {
   res.send('Welcome to Express');
