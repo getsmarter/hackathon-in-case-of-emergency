@@ -1,36 +1,50 @@
+const User = require('../models/user.model.js');
 const Organization = require('../models/organization.model.js');
+const UserOrganization = require('../models/userOrganization.model.js');
 
-// Create and Save a new Organization
-exports.create = (req, res) => {
+// Create and Save an Organization
+exports.create = async (req, res) => {
     // Validate request
-    if (!req.body.name) {
+    if (!req.body) {
         return res.status(400).send({
-            message: "Organization content can not be empty"
+            message: "Organization payload can't be empty"
         });
     }
 
-    // Create a Organization
-    const org = new Organization({
-        name: req.body.title || "Untitled Organization"
-    });
+    const params = req.body;
 
-    // Save Organization in the database
+    // Check if user is valid
+    const user = await User.findOne({ _id: req.query.userId });
+    if (!user) {
+        return res.status(400).send({
+            message: "User doesn't exists"
+        });
+    }
+
+    // Create an Organization
+    const org = new Organization({ name: params.name });
+
+    // Save organization in the database
     org.save()
         .then(data => {
-            res.send(data);
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Organization."
+            new UserOrganization({ user: user._id, organization: data._id, admin: true }).save().then(userOrgdata => {
+                res.send({
+                    userAddedToOrg: userOrgdata !== null,
+                    ...data._doc
+                });
+            }).catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while creating the Organization."
+                });
             });
         });
-};
+}
 
 // Retrieve and return all Organizations from the database.
 exports.findAll = (req, res) => {
     Organization.find()
-        .then(Organizations => {
-            console.log(Organizations);
-            res.send(Organizations);
+        .then(data => {
+            res.send(data);
         }).catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving Organizations."
@@ -38,29 +52,29 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Find a single Organization with a OrganizationId
+// Find a single Organization with a organization Id
 exports.findOne = (req, res) => {
-    Organization.findById(req.params.OrganizationId)
-        .then(Organization => {
-            if (!Organization) {
+    Organization.findById(req.params.organizationId)
+        .then(data => {
+            if (!data) {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
-            res.send(Organization);
+            res.send(data);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving Organization with id " + req.params.OrganizationId
+                message: "Error retrieving Organization with id " + req.params.organizationId
             });
         });
 };
 
-// Update a Organization identified by the OrganizationId in the request
+// Update a Organization identified by the organizationId in the request
 exports.update = (req, res) => {
     // Validate Request
     if (!req.body.content) {
@@ -70,46 +84,46 @@ exports.update = (req, res) => {
     }
 
     // Find Organization and update it with the request body
-    Organization.findByIdAndUpdate(req.params.OrganizationId, {
+    Organization.findByIdAndUpdate(req.params.organizationId, {
         name: req.body.name || "Untitled Organization",
     }, { new: true })
         .then(Organization => {
             if (!Organization) {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
             res.send(Organization);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
             return res.status(500).send({
-                message: "Error updating Organization with id " + req.params.OrganizationId
+                message: "Error updating Organization with id " + req.params.organizationId
             });
         });
 };
 
-// Delete a Organization with the specified OrganizationId in the request
+// Delete a Organization with the specified organizationId in the request
 exports.delete = (req, res) => {
-    Organization.findByIdAndRemove(req.params.OrganizationId)
+    Organization.findByIdAndRemove(req.params.organizationId)
         .then(Organization => {
             if (!Organization) {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
             res.send({ message: "Organization deleted successfully!" });
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
-                    message: "Organization not found with id " + req.params.OrganizationId
+                    message: "Organization not found with id " + req.params.organizationId
                 });
             }
             return res.status(500).send({
-                message: "Could not delete Organization with id " + req.params.OrganizationId
+                message: "Could not delete Organization with id " + req.params.organizationId
             });
         });
 };
