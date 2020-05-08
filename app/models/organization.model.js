@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const OrganizationSchema = new Schema({
-  id: String,
-  title: String,
-  content: String
+const OrganizationSchema = mongoose.Schema({
+    name: String,
+}, {
+    timestamps: true
 });
 
-//create model for organisation
-const Organization = mongoose.model('Organization', OrganizationSchema);
-
-module.exports = Organization;
+module.exports = mongoose.model('Organization', OrganizationSchema);

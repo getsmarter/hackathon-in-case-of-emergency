@@ -11,6 +11,9 @@ exports.create = (req, res) => {
 
     // Create a User
     const user = new User({
+        // title: req.body.title || "Untitled User",
+        // content: req.body.content
+        id: req.body.id || "-1",
         firstName: req.body.firstName || "emtpy",
         lastName: req.body.lastName || "empty",
         cellNo: req.body.cellNo || "0000",
@@ -75,11 +78,8 @@ exports.update = (req, res) => {
 
     // Find User and update it with the request body
     User.findByIdAndUpdate(req.params.UserId, {
-        firstName: req.body.firstName || "emtpy",
-        lastName: req.body.lastName || "empty",
-        cellNo: req.body.cellNo || "0000",
-        emailAddress: req.body.emailAddress || "empty",
-        team_id: req.body.team_id || "empty"
+        title: req.body.title || "Untitled User",
+        content: req.body.content
     }, { new: true })
         .then(User => {
             if (!User) {

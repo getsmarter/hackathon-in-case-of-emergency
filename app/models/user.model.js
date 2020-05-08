@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const UserSchema = new Schema({
-  id: String,
-  firstName: String,
-  lastName: String,
-  cellNo: String,
-  emailAddress: String,
-  team_id: String
+const UserSchema = mongoose.Schema({
+    firstName: String,
+    surName: String,
+    surName: String,
+    phoneNo: String,
+    email: String,
+    team: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Team'
+    },
+}, {
+    timestamps: true
 });
 
-//create model for organisation
-const User = mongoose.model('User', UserSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', UserSchema);

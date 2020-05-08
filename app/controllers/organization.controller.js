@@ -5,7 +5,7 @@ console.log(Organization);
 // Create and Save a new Organization
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.content) {
+    if (!req.body.name) {
         return res.status(400).send({
             message: "Organization content can not be empty"
         });
@@ -13,8 +13,7 @@ exports.create = (req, res) => {
 
     // Create a Organization
     const org = new Organization({
-        title: req.body.title || "Untitled Organization",
-        content: req.body.content
+        name: req.body.title || "Untitled Organization"
     });
 
     // Save Organization in the database
@@ -74,8 +73,7 @@ exports.update = (req, res) => {
 
     // Find Organization and update it with the request body
     Organization.findByIdAndUpdate(req.params.OrganizationId, {
-        title: req.body.title || "Untitled Organization",
-        content: req.body.content
+        name: req.body.name || "Untitled Organization",
     }, { new: true })
         .then(Organization => {
             if (!Organization) {
