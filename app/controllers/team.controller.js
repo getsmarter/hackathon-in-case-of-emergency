@@ -1,123 +1,119 @@
-const User = require('../models/User.model.js');
+const Team = require('../models/Team.model.js');
 
-// Create and Save a new User
+// Create and Save a new Team
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.firstName) {
+    if (!req.body.shortName) {
         return res.status(400).send({
-            message: "User content can not be empty"
+            message: "Team content can not be empty"
         });
     }
 
-    // Create a User
-    const user = new User({
-        // title: req.body.title || "Untitled User",
-        // content: req.body.content
-        id: req.body.id || "-1",
-        firstName: req.body.firstName || "emtpy",
-        lastName: req.body.lastName || "empty",
-        cellNo: req.body.cellNo || "0000",
-        emailAddress: req.body.emailAddress || "empty",
-        team_id: req.body.team_id || "empty"
+    // Create a Team
+    const team = new Team({
+        shortName: req.body.shortName,
+        fullName: req.body.fullName,
+        organization: req.body.organizationid || null,
+        meetingArea: req.body.meetingareaid || null
     });
 
-    // Save User in the database
-    user.save()
+    // Save Team in the database
+    team.save()
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the User."
+                message: err.message || "Some error occurred while creating the Team."
             });
         });
 };
 
-// Retrieve and return all Users from the database.
+// Retrieve and return all Teams from the database.
 exports.findAll = (req, res) => {
-    User.find()
-        .then(Users => {
-            console.log(Users);
-            res.send(Users);
+    Team.find()
+        .then(Teams => {
+            console.log(Teams);
+            res.send(Teams);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving Users."
+                message: err.message || "Some error occurred while retrieving Teams."
             });
         });
 };
 
-// Find a single User with a UserId
+// Find a single Team with a TeamId
 exports.findOne = (req, res) => {
-    User.findById(req.params.UserId)
-        .then(User => {
-            if (!User) {
+    Team.findById(req.params.TeamId)
+        .then(Team => {
+            if (!Team) {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
-            res.send(User);
+            res.send(Team);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving User with id " + req.params.UserId
+                message: "Error retrieving Team with id " + req.params.TeamId
             });
         });
 };
 
-// Update a User identified by the UserId in the request
+// Update a Team identified by the TeamId in the request
 exports.update = (req, res) => {
     // Validate Request
     if (!req.body.content) {
         return res.status(400).send({
-            message: "User content can not be empty"
+            message: "Team content can not be empty"
         });
     }
 
-    // Find User and update it with the request body
-    User.findByIdAndUpdate(req.params.UserId, {
-        title: req.body.title || "Untitled User",
+    // Find Team and update it with the request body
+    Team.findByIdAndUpdate(req.params.TeamId, {
+        title: req.body.title || "Untitled Team",
         content: req.body.content
     }, { new: true })
-        .then(User => {
-            if (!User) {
+        .then(Team => {
+            if (!Team) {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
-            res.send(User);
+            res.send(Team);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
             return res.status(500).send({
-                message: "Error updating User with id " + req.params.UserId
+                message: "Error updating Team with id " + req.params.TeamId
             });
         });
 };
 
-// Delete a User with the specified UserId in the request
+// Delete a Team with the specified TeamId in the request
 exports.delete = (req, res) => {
-    User.findByIdAndRemove(req.params.UserId)
-        .then(User => {
-            if (!User) {
+    Team.findByIdAndRemove(req.params.TeamId)
+        .then(Team => {
+            if (!Team) {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
-            res.send({ message: "User deleted successfully!" });
+            res.send({ message: "Team deleted successfully!" });
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
-                    message: "User not found with id " + req.params.UserId
+                    message: "Team not found with id " + req.params.TeamId
                 });
             }
             return res.status(500).send({
-                message: "Could not delete User with id " + req.params.UserId
+                message: "Could not delete Team with id " + req.params.TeamId
             });
         });
 };
