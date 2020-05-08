@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 // We can call multiple route files here, and just set them up for express further down
 // 
-const orgroutes = require('./routes/organisation');
+const orgroutes = require('./routes/organizations');
 const routes = require('./routes/api');
 
 const path = require('path');
