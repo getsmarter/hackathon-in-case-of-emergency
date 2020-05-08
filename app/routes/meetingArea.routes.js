@@ -3,9 +3,9 @@ const router = express.Router();
 const meetingArea = require('../controllers/team.controller.js');
 
 
-router.post('/meeting-areas', meetingArea.create);
+router.post('organizations/meeting-areas', meetingArea.create);
 
-router.get('/meeting-areas', meetingArea.findAll);
+router.get('organizations/:organizationId/meeting-areas', meetingArea.findAll);
 
 router.get('/meeting-areas/:meetingAreaId', meetingArea.findOne);
 

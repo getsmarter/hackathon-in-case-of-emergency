@@ -29,6 +29,7 @@ const signupRoutes = require('./routes/signup.routes');
 const teamRoutes = require('./routes/team.routes');
 const emergencyContactsRoutes = require('./routes/emergencyContacts.routes');
 const meetingAreaRoutes = require('./routes/meetingArea.routes');
+const incidentRoutes = require('./routes/incident.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -56,6 +57,7 @@ app.use('/api', noteRoutes);
 app.use('/api', userRoutes);
 app.use('/api', crewMemberRoutes);
 app.use('/api', meetingAreaRoutes);
+app.use('/api', incidentRoutes);
 app.use('/api', signupRoutes);
 app.use('/api', userOrganizationRoutes);
 app.use('/api', teamRoutes);
