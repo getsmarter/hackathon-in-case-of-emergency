@@ -20,4 +20,7 @@ router.delete('/alerts/:alertId', alert.delete);
 ///organizations/alerts/checkin
 router.post('/alerts/checkin', alert.createCheckin);
 
+// Get all checkins for alert
+router.get('/alerts/checkin/:alertId', alert.getAllCheckinsForIncident);
+
 module.exports = router;

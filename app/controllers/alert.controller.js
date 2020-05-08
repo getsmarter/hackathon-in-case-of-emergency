@@ -61,6 +61,19 @@ exports.createCheckin = (req, res) => {
         });
 };
 
+exports.getAllCheckinsForIncident = (req, res) => {
+    // Validate request
+    AlertCheckin.find({alert:req.body.alertId})
+        .then(Alerts => {
+            console.log(Alerts);
+            res.send(Alerts);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Alerts."
+            });
+        });
+};
+
 // Retrieve and return all Alerts from the database.
 exports.findAll = (req, res) => {
     Alert.find()
