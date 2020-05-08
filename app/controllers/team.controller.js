@@ -1,4 +1,4 @@
-const Team = require('../models/Team.model.js');
+const Team = require('../models/team.model.js');
 
 // Create and Save a new Team
 exports.create = (req, res) => {
@@ -13,8 +13,8 @@ exports.create = (req, res) => {
     const team = new Team({
         shortName: req.body.shortName,
         fullName: req.body.fullName,
-        organization: req.body.organizationid || null,
-        meetingArea: req.body.meetingareaid || null
+        organization: req.body.organizationId,
+        meetingArea: req.body.meetingAreaId
     });
 
     // Save Team in the database

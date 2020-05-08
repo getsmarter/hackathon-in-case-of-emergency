@@ -20,13 +20,15 @@ mongoose.connect(process.env.DB, {
 // 
 
 /** APP ROUTES */
-const orgRoutes = require('./routes/organizations.routes');
+const orgRoutes = require('./routes/organization.routes');
+const userOrganizationRoutes = require('./routes/userOrganization.routes');
 const userRoutes = require('./routes/user.routes');
 const noteRoutes = require('./routes/note.routes');
 const crewMemberRoutes = require('./routes/crewMember.routes');
 const signupRoutes = require('./routes/signup.routes');
 const teamRoutes = require('./routes/team.routes');
 const emergencyContactsRoutes = require('./routes/emergencyContacts.routes');
+const meetingAreaRoutes = require('./routes/meetingArea.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -53,7 +55,9 @@ app.use('/api', orgRoutes);
 app.use('/api', noteRoutes);
 app.use('/api', userRoutes);
 app.use('/api', crewMemberRoutes);
+app.use('/api', meetingAreaRoutes);
 app.use('/api', signupRoutes);
+app.use('/api', userOrganizationRoutes);
 app.use('/api', teamRoutes);
 app.use('/api', emergencyContactsRoutes);
 
