@@ -3,7 +3,7 @@ const Alert = require('../models/alert.model.js');
 // Create and Save a new Alert
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.firstName) {
+    if (!req.body.name) {
         return res.status(400).send({
             message: "Alert content can not be empty"
         });
@@ -11,11 +11,13 @@ exports.create = (req, res) => {
 
     // Create a Alert
     const alert = new Alert({
-        firstName: req.body.firstName || "emtpy",
-        lastName: req.body.lastName || "empty",
-        cellNo: req.body.cellNo || "0000",
-        emailAddress: req.body.emailAddress || "empty",
-        team_id: req.body.team_id || "empty"
+        name: req.body.name,
+        message: req.body.message || "empty",
+        timeEnded: req.body.timeEnded || "0000",
+        incident: req.body.incidentid || null,
+        createdBy: req.body.userid || null, 
+        endedBy: req.body.userid || null, 
+        organization: req.body.organizationid || null, 
     });
 
     // Save Alert in the database
@@ -67,7 +69,7 @@ exports.findOne = (req, res) => {
 // Update a Alert identified by the AlertId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.content) {
+    if (!req.body.AlertId) {
         return res.status(400).send({
             message: "Alert content can not be empty"
         });
@@ -75,11 +77,12 @@ exports.update = (req, res) => {
 
     // Find Alert and update it with the request body
     Alert.findByIdAndUpdate(req.params.AlertId, {
-        firstName: req.body.firstName || "emtpy",
-        lastName: req.body.lastName || "empty",
-        cellNo: req.body.cellNo || "0000",
-        emailAddress: req.body.emailAddress || "empty",
-        team_id: req.body.team_id || "empty"
+        name: req.body.name || "empty",
+        timeEnded: req.body.timeEnded || "0000",
+        incident: req.body.incidentid || null,
+        createdBy: req.body.userid || null, 
+        endedBy: req.body.userid || null, 
+        organization: req.body.organizationid || null, 
     }, { new: true })
         .then(Alert => {
             if (!Alert) {
