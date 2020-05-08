@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 const organization = require('../controllers/organization.controller.js');
 
-// Create a new Note
-router.post('/organization', organization.create);
+// Create new organization
+router.post('/organizations', organization.create);
 
-// Retrieve all Notes
-router.get('/organization', organization.findAll);
+// List organizations
+router.get('/organizations', organization.findAll);
 
-// Retrieve a single Note with noteId
+// Retrieve a single organization
 router.get('/organization/:organizationId', organization.findOne);
 
-// Update a Note with noteId
+// Update an organization
 router.put('/organization/:organizationId', organization.update);
 
-// Delete a Note with noteId
+// Delete an organization
 router.delete('/organization/:organizationId', organization.delete);
 
 module.exports = router;
