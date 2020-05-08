@@ -21,7 +21,7 @@ function CreateTeamModal (props) {
       </Modal.Header>
       <Modal.Body>
         <form>
-        <input type="text" name="teamname" placeholder="Name" value={props.teamname} onChange={props.handleOrgNameChange} />
+        <input className="form-control" type="text" name="teamname" placeholder="Name" value={props.teamname} onChange={props.handleOrgNameChange} />
         </form>
       </Modal.Body>
       <Modal.Footer>
