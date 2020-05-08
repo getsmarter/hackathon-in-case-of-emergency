@@ -24,6 +24,7 @@ const orgRoutes = require('./routes/organizations.routes');
 const userRoutes = require('./routes/user.routes');
 const noteRoutes = require('./routes/note.routes');
 const crewMemberRoutes = require('./routes/crewMember.routes');
+const signupRoutes = require('./routes/signup.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -50,6 +51,7 @@ app.use('/api', orgRoutes);
 app.use('/api', noteRoutes);
 app.use('/api', userRoutes);
 app.use('/api', crewMemberRoutes);
+app.use('/api', signupRoutes);
 
 app.listen(port, () => {
   console.log('running');
