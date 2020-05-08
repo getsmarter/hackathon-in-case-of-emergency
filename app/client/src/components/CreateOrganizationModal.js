@@ -21,7 +21,7 @@ function CreateOrganizationModal (props) {
       </Modal.Header>
       <Modal.Body>
         <form>
-        <input type="text" name="organizationname" placeholder="Name" value={props.organizationname} onChange={props.handleOrgNameChange} />
+        <input className="form-control" type="text" name="organizationname" placeholder="Name" value={props.organizationname} onChange={props.handleOrgNameChange} />
         </form>
       </Modal.Body>
       <Modal.Footer>
