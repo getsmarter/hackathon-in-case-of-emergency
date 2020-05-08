@@ -18,13 +18,12 @@ mongoose.connect(process.env.DB, {
 });
 // We can call multiple route files here, and just set them up for express further down
 // 
-const orgRoutes = require('./routes/organizations');
+const orgRoutes = require('./routes/organizations.routes');
 /** APP ROUTES */
 const noteRoutes = require('./routes/note.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
-
 
 const app = express();
 
