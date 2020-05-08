@@ -16,9 +16,10 @@ mongoose.connect(process.env.DB, {
   console.log('Could not connect to the database. Exiting now...', err);
   process.exit();
 });
-
+// We can call multiple route files here, and just set them up for express further down
+// 
+const orgRoutes = require('./routes/organizations');
 /** APP ROUTES */
-const orgroutes = require('./routes/organisation');
 const noteRoutes = require('./routes/note.routes');
 const routes = require('./routes/api');
 
@@ -43,7 +44,7 @@ app.use(bodyParser.json());
 
 // Adding our routes to express
 app.use('/api', routes);
-app.use('/api', orgroutes);
+app.use('/api', orgRoutes);
 app.use('/api', noteRoutes);
 
 app.listen(port, () => {
