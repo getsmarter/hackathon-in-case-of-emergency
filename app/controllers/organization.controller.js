@@ -1,7 +1,5 @@
 const Organization = require('../models/organization.model.js');
 
-console.log(Organization);
-
 // Create and Save a new Organization
 exports.create = (req, res) => {
     // Validate request
