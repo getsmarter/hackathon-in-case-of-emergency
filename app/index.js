@@ -27,6 +27,7 @@ const noteRoutes = require('./routes/note.routes');
 const crewMemberRoutes = require('./routes/crewMember.routes');
 const signupRoutes = require('./routes/signup.routes');
 const teamRoutes = require('./routes/team.routes');
+const meetingAreaRoutes = require('./routes/meetingArea.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -53,6 +54,7 @@ app.use('/api', orgRoutes);
 app.use('/api', noteRoutes);
 app.use('/api', userRoutes);
 app.use('/api', crewMemberRoutes);
+app.use('/api', meetingAreaRoutes);
 app.use('/api', signupRoutes);
 app.use('/api', userOrganizationRoutes);
 app.use('/api', teamRoutes);
