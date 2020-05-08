@@ -40,9 +40,16 @@ exports.create = async (req, res) => {
         });
 }
 
-// Retrieve and return all Organizations from the database.
-exports.findAll = (req, res) => {
-    Organization.find()
+
+exports.findAll = async (req, res) => {
+    let organizations = Organization.find();
+
+    if (req.query.userId) {
+        const userOrgs = await UserOrganization.find().where({ user: req.query.userId });
+        organizations = organizations.where({ _id: { $in: userOrgs.map(userOrg => userOrg.organization )}});
+    }
+
+    organizations
         .then(data => {
             res.send(data);
         }).catch(err => {
