@@ -1,4 +1,4 @@
-const CrewMember = require('../models/CrewMember.model.js');
+const CrewMember = require('../models/crewMember.model.js');
 
 
 // Create and Save a new CrewMember
