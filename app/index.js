@@ -21,6 +21,7 @@ mongoose.connect(process.env.DB, {
 const orgRoutes = require('./routes/organizations');
 /** APP ROUTES */
 const noteRoutes = require('./routes/note.routes');
+const signupRoutes = require('./routes/signup.routes');
 const routes = require('./routes/api');
 
 const path = require('path');
@@ -46,6 +47,7 @@ app.use(bodyParser.json());
 app.use('/api', routes);
 app.use('/api', orgRoutes);
 app.use('/api', noteRoutes);
+app.use('/api', signupRoutes);
 
 app.listen(port, () => {
   console.log('running');
