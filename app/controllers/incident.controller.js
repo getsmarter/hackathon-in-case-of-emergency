@@ -1,116 +1,113 @@
-const MeetingArea = require('../models/meetingArea.model.js');
+const Incident = require('../models/incident.model.js');
+
 
 exports.create = (req, res) => {
-    // Validate request
     if (!req.body.name) {
         return res.status(400).send({
-            message: "Meeting area content is not valid"
+            message: "Incident content is not valid"
         });
     }
 
-    // Create a MeetingArea
-    const meetingArea = new MeetingArea({
+    const incident = new Incident({
         name: req.body.name,
-        parkingLot: req.body.parkingLot,
+        level: req.body.level,
         organization: req.body.organizationId,
     });
 
-    // Save MeetingArea in the database
-    meetingArea.save()
+    incident.save()
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the meeting area."
+                message: err.message || "Some error occurred while creating the incident"
             });
         });
 };
 
-// Retrieve and return all meeting areas for an org from the database.
+
 exports.findAll = (req, res) => {
-    MeetingArea.find().where({ organization: req.params.organizationId })
+    Incident.find().where({ organization: req.params.organizationId })
         .then(data => {
             res.send(data);
         }).catch(err => {
             res.status(500).send({
-                message: err.message || "Some error occurred while retrieving meeting areas for organization."
+                message: err.message || "Some error occurred while retrieving incidents for organization."
             });
         });
 };
 
-// Find a single meeting area
+
 exports.findOne = (req, res) => {
-    MeetingArea.findById(req.params.meetingAreaId)
+    Incident.findById(req.params.incidentId)
         .then(data => {
             if (!data) {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
             res.send(data);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving meeting area with id " + req.params.meetingAreaId
+                message: "Error retrieving incident with id " + req.params.incidentId
             });
         });
 };
 
 
 exports.update = (req, res) => {
-    // Validate Request
     if (!req.body.name) {
         return res.status(400).send({
-            message: "Meeting Area content can not be empty"
+            message: "Incident content can not be empty"
         });
     }
 
-    MeetingArea.findByIdAndUpdate(req.params.meetingAreaId, {
+    Incident.findByIdAndUpdate(req.params.incidentId, {
         name: req.body.name,
-        parkingLot: req.body.parkingLot,
+        level: req.body.level,
         organization: req.body.organizationId,
     }, { new: true })
         .then(data => {
             if (!data) {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
             res.send(data);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
             return res.status(500).send({
-                message: "Error updating meeting area with id " + req.params.meetingAreaId
+                message: "Error updating incident with id " + req.params.incidentId
             });
         });
 };
 
 
 exports.delete = (req, res) => {
-    MeetingArea.findByIdAndRemove(req.params.meetingAreaId)
+    Incident.findByIdAndRemove(req.params.incidentId)
         .then(data => {
             if (!data) {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
-            res.send({ message: "Meeting Area deleted successfully!" });
+            res.send({ message: "Incident deleted successfully!" });
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
-                    message: "Meeting Area not found with id " + req.params.meetingAreaId
+                    message: "Incident not found with id " + req.params.incidentId
                 });
             }
             return res.status(500).send({
-                message: "Could not delete Meeting Area with id " + req.params.meetingAreaId
+                message: "Could not delete incident with id " + req.params.incidentId
             });
         });
 };
