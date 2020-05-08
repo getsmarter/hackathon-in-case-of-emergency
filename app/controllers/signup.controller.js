@@ -11,13 +11,13 @@ exports.create = async (req, res) => {
 
     const params = req.body;
 
-    // Check if user already exists with email
-    const user = await User.findOne({ email: params.email });
-    if (user) {
-        return res.status(400).send({
-            message: "User already exists"
-        });
-    }
+    // // Check if user already exists with email
+    // const user = await User.findOne({ email: params.email });
+    // if (user) {
+    //     return res.status(400).send({
+    //         message: "User already exists"
+    //     });
+    // }
 
     // Create the User
     const newUser = new User({
