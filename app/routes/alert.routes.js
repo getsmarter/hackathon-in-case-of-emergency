@@ -17,4 +17,7 @@ router.put('/alerts/:alertId', alert.update);
 // Delete a alert with noteId
 router.delete('/alerts/:alertId', alert.delete);
 
+///organizations/alerts/checkin
+router.post('/alerts/checkin', alert.createCheckin);
+
 module.exports = router;

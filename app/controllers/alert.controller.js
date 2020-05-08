@@ -1,4 +1,5 @@
 const Alert = require('../models/alert.model.js');
+const AlertCheckin = require('../models/alertCheckin.model.js');
 
 // Create and Save a new Alert
 exports.create = (req, res) => {
@@ -22,6 +23,35 @@ exports.create = (req, res) => {
 
     // Save Alert in the database
     alert.save()
+        .then(data => {
+            res.send(data);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while creating the Alert."
+            });
+        });
+};
+
+exports.createCheckin = (req, res) => {
+    // Validate request
+    if (!req.body.message) {
+        return res.status(400).send({
+            message: "Alert content can not be empty"
+        });
+    }
+
+    // Create a Alert
+    const alertCheckin = new AlertCheckin({
+        message: req.body.message,
+        status: req.body.status,
+        checkedIn: req.body.checkedIn || false,
+        alert:  req.body.alert || null,
+        user: req.body.user || null,
+        meetingArea: req.body.meetingId || null
+    });
+
+    // Save Alert in the database
+    alertCheckin.save()
         .then(data => {
             res.send(data);
         }).catch(err => {
