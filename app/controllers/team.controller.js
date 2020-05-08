@@ -30,7 +30,7 @@ exports.create = (req, res) => {
 
 // Retrieve and return all Teams from the database.
 exports.findAll = (req, res) => {
-    Team.find()
+    Team.find().where({ organization: req.params.organizationId })
         .then(Teams => {
             console.log(Teams);
             res.send(Teams);
