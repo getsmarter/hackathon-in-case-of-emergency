@@ -2,19 +2,15 @@ const express = require('express');
 const router = express.Router();
 const crewMember = require('../controllers/crewMember.controller.js');
 
-// Create a new Note
-router.post('/crewMember', crewMember.create);
 
-// Retrieve all crewMember
-router.get('/crewMember', crewMember.findAll);
+router.post('/crew-members', crewMember.create);
 
-// Retrieve a single Note with noteId
-router.get('/crewMember/:noteId', crewMember.findOne);
+router.get('organizations/:organizationId/crew-members', crewMember.findAll);
 
-// Update a Note with noteId
-router.put('/crewMember/:noteId', crewMember.update);
+router.get('/crew-members/:crewMemberId', crewMember.findOne);
 
-// Delete a Note with noteId
-router.delete('/crewMember/:noteId', crewMember.delete);
+router.put('/crew-members/:crewMemberId', crewMember.update);
+
+router.delete('/crew-members/:crewMemberId', crewMember.delete);
 
 module.exports = router;
