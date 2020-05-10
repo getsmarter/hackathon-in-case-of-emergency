@@ -167,3 +167,16 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+exports.findAlertsForOrganization = (req, res) => {
+    // Validate request
+    Alert.find({organization:req.params.organizationid})
+        .then(Alerts => {
+            console.log(Alerts);
+            res.send(Alerts);
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Alerts."
+            });
+        });
+};
