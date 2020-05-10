@@ -9,12 +9,12 @@ router.post('/organizations', organization.create);
 router.get('/organizations', organization.findAll);
 
 // Retrieve a single organization
-router.get('/organization/:organizationId', organization.findOne);
+router.get('/organizations/:organizationId', organization.findOne);
 
 // Update an organization
-router.put('/organization/:organizationId', organization.update);
+router.put('/organizations/:organizationId', organization.update);
 
 // Delete an organization
-router.delete('/organization/:organizationId', organization.delete);
+router.delete('/organizations/:organizationId', organization.delete);
 
 module.exports = router;

@@ -84,7 +84,7 @@ exports.findOne = (req, res) => {
 // Update a Organization identified by the organizationId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.content) {
+    if (!req.body.name) {
         return res.status(400).send({
             message: "Organization content can not be empty"
         });
