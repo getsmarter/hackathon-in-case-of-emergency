@@ -43,22 +43,22 @@ exports.findAll = (req, res) => {
 
 // Find a single Team with a TeamId
 exports.findOne = (req, res) => {
-    Team.findById(req.params.TeamId)
+    Team.findById(req.params.teamId)
         .then(Team => {
             if (!Team) {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             res.send(Team);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             return res.status(500).send({
-                message: "Error retrieving Team with id " + req.params.TeamId
+                message: "Error retrieving Team with id " + req.params.teamId
             });
         });
 };
@@ -66,54 +66,57 @@ exports.findOne = (req, res) => {
 // Update a Team identified by the TeamId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.content) {
+    if (!req.body.teamId) {
         return res.status(400).send({
             message: "Team content can not be empty"
         });
     }
 
     // Find Team and update it with the request body
-    Team.findByIdAndUpdate(req.params.TeamId, {
-        title: req.body.title || "Untitled Team",
-        content: req.body.content
+    Team.findByIdAndUpdate(req.params.teamId, {
+        shortName: req.body.shortName,
+        fullName: req.body.fullName,
+        organization: req.body.organizationId,
+        meetingArea: req.body.meetingAreaId
     }, { new: true })
         .then(Team => {
             if (!Team) {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             res.send(Team);
         }).catch(err => {
             if (err.kind === 'ObjectId') {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             return res.status(500).send({
-                message: "Error updating Team with id " + req.params.TeamId
+                message: "Error updating Team with id " + req.params.teamId
             });
         });
 };
 
 // Delete a Team with the specified TeamId in the request
 exports.delete = (req, res) => {
-    Team.findByIdAndRemove(req.params.TeamId)
+
+    Team.findByIdAndRemove(req.params.teamId)
         .then(Team => {
             if (!Team) {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             res.send({ message: "Team deleted successfully!" });
         }).catch(err => {
             if (err.kind === 'ObjectId' || err.name === 'NotFound') {
                 return res.status(404).send({
-                    message: "Team not found with id " + req.params.TeamId
+                    message: "Team not found with id " + req.params.teamId
                 });
             }
             return res.status(500).send({
-                message: "Could not delete Team with id " + req.params.TeamId
+                message: "Could not delete Team with id " + req.params.teamId
             });
         });
 };
