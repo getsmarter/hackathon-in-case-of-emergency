@@ -28,7 +28,8 @@ exports.create = (req, res) => {
 
 // Retrieve and return all meeting areas for an org from the database.
 exports.findAll = (req, res) => {
-    MeetingArea.find().where({ organization: req.params.organizationId })
+    
+    MeetingArea.find().where({"organization" : req.params.organizationId})
         .then(data => {
             res.send(data);
         }).catch(err => {
