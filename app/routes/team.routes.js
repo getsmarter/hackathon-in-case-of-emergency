@@ -6,7 +6,7 @@ const team = require('../controllers/team.controller.js');
 router.post('/teams', team.create);
 
 // Retrieve all team
-router.get('/organizations/:organizationId/teams', team.findAll);
+router.get('/teams/organizations/:organizationId', team.findAll);
 
 // Retrieve a single team
 router.get('/teams/:teamId', team.findOne);
