@@ -66,7 +66,7 @@ exports.findOne = (req, res) => {
 // Update a Team identified by the TeamId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.TeamId) {
+    if (!req.body.teamId) {
         return res.status(400).send({
             message: "Team content can not be empty"
         });
