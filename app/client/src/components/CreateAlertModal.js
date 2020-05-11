@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 
-    class CreateTeamModal extends React.Component { 
+    class CreateAlertModal extends React.Component { 
         constructor(props) {
           super(props);
           this.state = { }; // initialise state 
@@ -10,7 +10,7 @@ import { Button, Modal } from "react-bootstrap";
 
        handleChange(e) {
           const targetValue = e.target.value;
-          this.props.handleMeetingAreaSelectChange(e);
+          this.props.handleOrganizationSelectChange(e);
         }
     // Make sure class has a render method 
 
@@ -23,23 +23,23 @@ import { Button, Modal } from "react-bootstrap";
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create Team
+          Create Alert
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-        <input className="form-control" type="text" name="shortname" placeholder="Short Name" value={this.props.shortname} onChange={this.props.handleShortNameChange} />
-        <input className="form-control" type="text" name="shortname" placeholder="Full Name" value={this.props.fullname} onChange={this.props.handleFullNameChange} />
+        <input className="form-control" type="text" name="alertname" placeholder="Name" value={this.props.alertname} onChange={this.props.handleAlertNameChange} />
+        <input className="form-control" type="text" name="alertmessage" placeholder="Message" value={this.props.alertmessage} onChange={this.props.handleAlertMessageChange} />
           <select className="form-control"
-          value={this.props.selectedMeetingArea}
+          value={this.props.selectOrganization}
           onChange={this.handleChange}
         >
-          {this.props.meetingAreas.map(team => (
+          {this.props.organizationsselect.map(organization => (
             <option
-              key={team.value}
-              value={team.value}
+              key={organization.value}
+              value={organization.value}
             >
-              {team.display}
+              {organization.display}
             </option>
           ))}
         </select>
@@ -62,4 +62,4 @@ import { Button, Modal } from "react-bootstrap";
     }
  }
 
- export default CreateTeamModal;
+ export default CreateAlertModal;

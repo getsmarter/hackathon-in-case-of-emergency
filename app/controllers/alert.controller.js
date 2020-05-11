@@ -65,7 +65,6 @@ exports.getAllCheckinsForIncident = (req, res) => {
     // Validate request
     AlertCheckin.find({alert:req.body.alertId})
         .then(Alerts => {
-            console.log(Alerts);
             res.send(Alerts);
         }).catch(err => {
             res.status(500).send({
@@ -78,7 +77,6 @@ exports.getAllCheckinsForIncident = (req, res) => {
 exports.findAll = (req, res) => {
     Alert.find()
         .then(Alerts => {
-            console.log(Alerts);
             res.send(Alerts);
         }).catch(err => {
             res.status(500).send({
@@ -112,7 +110,7 @@ exports.findOne = (req, res) => {
 // Update a Alert identified by the AlertId in the request
 exports.update = (req, res) => {
     // Validate Request
-    if (!req.body.AlertId) {
+    if (!req.params.AlertId) {
         return res.status(400).send({
             message: "Alert content can not be empty"
         });
@@ -170,9 +168,8 @@ exports.delete = (req, res) => {
 
 exports.findAlertsForOrganization = (req, res) => {
     // Validate request
-    Alert.find({organization:req.params.organizationid})
+    Alert.find({organization:req.params.organizationId})
         .then(Alerts => {
-            console.log(Alerts);
             res.send(Alerts);
         }).catch(err => {
             res.status(500).send({

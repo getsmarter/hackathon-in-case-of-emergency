@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import "./App.css";
@@ -6,8 +6,6 @@ import Routes from "./Routes";
 import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./libs/contextLib";
 import { Auth } from "aws-amplify";
-import { onError } from "./libs/errorLib";
-
 
 function App() {
   const history = useHistory();
@@ -57,20 +55,8 @@ function App() {
                   <LinkContainer to="/organizations">
                     <NavItem>Organizations</NavItem>
                   </LinkContainer>
-                  <LinkContainer to="/teams">
-                    <NavItem>Teams</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/meeting-areas">
-                    <NavItem>Meeting Areas</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/incidents">
-                    <NavItem>Incidents</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/emergency-contacts">
-                    <NavItem>Emergency Contacts</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/crew">
-                    <NavItem>Crew</NavItem>
+                  <LinkContainer to="/">
+                    <NavItem>Alerts</NavItem>
                   </LinkContainer>                
                   <NavItem onClick={handleLogout}>Logout</NavItem></>
               : <>

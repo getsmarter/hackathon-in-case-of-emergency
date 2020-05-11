@@ -1,8 +1,7 @@
 import React from "react";
 import { Button, Modal} from "react-bootstrap";
-import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 
-function CreateOrganizationModal (props) {
+function CreateMeetingAreaModal (props) {
   return (
     <Modal
       show={props.show} onHide={props.onHide}
@@ -11,16 +10,13 @@ function CreateOrganizationModal (props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Create Organization
+          Create Meeting Area
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form>
-        <input className="form-control" type="text" name="organizationname" placeholder="Name" value={props.organizationname} onChange={props.handleOrgNameChange} />
-                <FormGroup controlId="file">
-          <ControlLabel>Attachment</ControlLabel>
-          <FormControl onChange={props.handleFileChange} type="file" />
-        </FormGroup>
+        <input className="form-control" type="text" name="meetingareaname" placeholder="Name" value={props.meetingareaname} onChange={props.handleMeetingAreaNameChange} />
+        <input className="form-control" type="text" name="parkinglotname" placeholder="Parking Lot" value={props.parkinglotname} onChange={props.handleParkingLotNameChange} />
         </form>
       </Modal.Body>
       <Modal.Footer>
@@ -31,4 +27,4 @@ function CreateOrganizationModal (props) {
   );
 }
 
-export default CreateOrganizationModal;
+export default CreateMeetingAreaModal;

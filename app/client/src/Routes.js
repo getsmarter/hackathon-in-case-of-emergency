@@ -6,6 +6,8 @@ import NotFound from "./containers/NotFound";
 import Signup from "./containers/Signup";
 import Organizations from "./containers/Organizations";
 import Teams from "./containers/Teams";
+import MeetingAreas from "./containers/MeetingAreas";
+import NewAlert from "./containers/NewAlert";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 
@@ -26,7 +28,13 @@ export default function Routes() {
 	  </AuthenticatedRoute>
 	  <AuthenticatedRoute exact path="/teams">
 	   <Teams />
-	  </AuthenticatedRoute>  	  
+	  </AuthenticatedRoute> 
+	  <AuthenticatedRoute exact path="/meetingareas">
+	   <MeetingAreas />
+	  </AuthenticatedRoute>	 	  
+	  <AuthenticatedRoute exact path="/newalert">
+	   <NewAlert />
+	  </AuthenticatedRoute>	
       {/* Finally, catch all unmatched routes */}
       <Route>
 		<NotFound />

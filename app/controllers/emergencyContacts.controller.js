@@ -33,7 +33,6 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     EmergencyContacts.find()
         .then(EmergencyContactss => {
-            console.log(EmergencyContactss);
             res.send(EmergencyContactss);
         }).catch(err => {
             res.status(500).send({
