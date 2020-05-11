@@ -32,7 +32,6 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Team.find().where({ organization: req.params.organizationId })
         .then(Teams => {
-            console.log(Teams);
             res.send(Teams);
         }).catch(err => {
             res.status(500).send({
