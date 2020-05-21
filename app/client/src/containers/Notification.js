@@ -36,7 +36,7 @@ export class Notification extends Component {
     if (!subscribeToSocket) {
       notificationSocket = io('http://localhost:5000/notification');
       // notificationSocket.on(`notifications/${userId}`, noty => {
-        notificationSocket.on('notifications', noty => {
+      notificationSocket.on('notifications', noty => {
         this.setState(state => {
           return {
             notifications: [...state.notifications, noty]
