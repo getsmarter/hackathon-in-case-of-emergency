@@ -1,7 +1,9 @@
 const express = require('express');
+const http = require("http");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const socketio = require('socket.io');
 dotenv.config();
 
 mongoose.Promise = global.Promise;
@@ -35,7 +37,14 @@ const routes = require('./routes/api');
 
 const path = require('path');
 
+// create a new express app
 const app = express();
+
+// create http server and wrap the express app
+const server = http.createServer(app);
+
+// bind socket.io to server
+global.io = socketio(server);
 
 const port = process.env.PORT || 5000;
 
@@ -51,6 +60,17 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
+const notificationSocket = io.of('/notification');
+console.log('notificationSocket', notificationSocket);
+notificationSocket.on('connection', socket => {
+  console.log('connected....');
+  // notificationSocket.emit('notifications', 'message');
+});
+
 // Adding our routes to express
 app.use('/api', routes);
 app.use('/api', orgRoutes);
@@ -65,7 +85,7 @@ app.use('/api', teamRoutes);
 app.use('/api', emergencyContactsRoutes);
 app.use('/api', alertRoutes);
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log('running');
   console.log(`Server running on port ${port}`)
 });

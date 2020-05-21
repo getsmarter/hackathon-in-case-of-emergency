@@ -18,12 +18,12 @@ router.put('/alerts/:alertId', alert.update);
 router.delete('/alerts/:alertId', alert.delete);
 
 ///organizations/alerts/checkin
-router.post('/alerts/checkin', alert.createCheckin);
+router.post('/alerts/:alertId/checkin', alert.createCheckin);
 
 // Get all checkins for alert
-router.get('/alerts/checkin/:alertId', alert.getAllCheckinsForIncident);
+router.get('/alerts/:alertId/checkin', alert.getAllCheckinsForIncident);
 
 // Retrieve a single alert with organizationid
-router.get('/alerts/organizations/:organizationid', alert.findAlertsForOrganization);
+router.get('/alerts/organizations/:organizationId', alert.findAlertsForOrganization);
 
 module.exports = router;
