@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { Auth } from "aws-amplify";
 import { Link, useHistory } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import "./App.css";
 import Routes from "./Routes";
-import { LinkContainer } from "react-router-bootstrap";
 import { AppContext } from "./libs/contextLib";
-import { Auth } from "aws-amplify";
+import Notification from './containers/Notification';
 
 function App() {
   const history = useHistory();
   const [isAuthenticated, userHasAuthenticated] = useState(false);
   const [isAuthenticating, setIsAuthenticating] = useState(true);
-
+  const [userDetails, setUserDetails] = useState(null);
+  
   useEffect(() => {
     onLoad();
   }, []);
@@ -72,8 +74,9 @@ function App() {
         </Navbar.Collapse>
       </Navbar>
       <AppContext.Provider
-        value={{ isAuthenticated, userHasAuthenticated }}
+        value={{ isAuthenticated, userHasAuthenticated, userDetails, setUserDetails }}
       >
+        <Notification />
         <Routes />
       </AppContext.Provider>
     </div>
